@@ -1,0 +1,25 @@
+<!-- templates/camino.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Camino más económico</title>
+</head>
+<body>
+    <h2>Resultado del camino óptimo: Ibarra → Loja</h2>
+
+    {% if resultado.camino %}
+        <p><strong>Ruta:</strong> {{ resultado.camino | join(" → ") }}</p>
+        <p><strong>Costo total:</strong> ${{ resultado.costo }}</p>
+        {% if resultado.valido %}
+            <p style="color: green;"><strong>✅ El camino incluye una ciudad costera.</strong></p>
+        {% else %}
+            <p style="color: red;"><strong>❌ El camino NO pasa por ciudad costera.</strong></p>
+        {% endif %}
+    {% else %}
+        <p><strong>No se encontró un camino entre Ibarra y Loja.</strong></p>
+    {% endif %}
+
+    <p><a href="/grafo">Ver grafo</a></p>
+</body>
+</html>

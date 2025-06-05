@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Grafo Interactivo con vis.js</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+  <h2>Ejemplo de Grafo con vis.js</h2>
+  <div id="grafo" style="width: 800px; height: 500px; border: 1px solid lightgray;"></div>
+
+  <script>
+    const nodes = new vis.DataSet([
+      {id: 1, label: 'Inicio'},
+      {id: 2, label: 'Nodo A'},
+      {id: 3, label: 'Nodo B'},
+      {id: 4, label: 'Fin'}
+    ]);
+
+    const edges = new vis.DataSet([
+      {from: 1, to: 2},
+      {from: 1, to: 3},
+      {from: 2, to: 4},
+      {from: 3, to: 4}
+    ]);
+
+    const container = document.getElementById('grafo');
+    const data = { nodes: nodes, edges: edges };
+    const options = {
+      nodes: { shape: 'box', color: '#A2D5F2' },
+      edges: { arrows: 'to' },
+      layout: { hierarchical: { direction: 'UD' } }
+    };
+
+    const network = new vis.Network(container, data, options);
+  </script>
+</body>
+</html>

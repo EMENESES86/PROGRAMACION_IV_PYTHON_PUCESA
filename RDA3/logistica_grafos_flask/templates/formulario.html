@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar ruta personalizada</title>
+</head>
+<body>
+    <h2>Buscar camino más económico</h2>
+
+    <form method="post">
+        <label for="origen">Ciudad de origen:</label>
+        <select name="origen" required>
+            {% for ciudad in ciudades %}
+                <option value="{{ ciudad }}"
+                    {% if request.form.origen == ciudad %}selected{% endif %}>
+                    {{ ciudad }}
+                </option>
+            {% endfor %}
+        </select>
+
+
+        <label for="destino">Ciudad de destino:</label>
+        <select name="destino" required>
+            {% for ciudad in ciudades %}
+                <option value="{{ ciudad }}"
+                    {% if request.form.destino == ciudad %}selected{% endif %}>
+                    {{ ciudad }}
+                </option>
+            {% endfor %}
+        </select>
+
+
+        <button type="submit">Calcular</button>
+    </form>
+
+    {% if resultado %}
+        <h3>Resultado</h3>
+        <p><strong>Ruta:</strong> {{ resultado.camino | join(" → ") }}</p>
+        <p><strong>Costo total:</strong> ${{ resultado.costo }}</p>
+        {% if resultado.valido %}
+            <p style="color: green;"><strong>✅ El camino incluye una ciudad costera.</strong></p>
+        {% else %}
+            <p style="color: red;"><strong>❌ El camino NO pasa por ciudad costera.</strong></p>
+        {% endif %}
+    {% endif %}
+
+    <p><a href="/grafo">Ver grafo</a></p>
+    <p><a href="/camino">Ruta fija Ibarra → Loja</a></p>
+</body>
+</html>
